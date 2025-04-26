@@ -29,13 +29,13 @@
                             <div class="dropdown">
                                 <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-projects"
                                     role="button">
-                                    <span data-key="t-projects">Category</span>
+                                    <span data-key="t-projects">Unit</span>
                                     <div class="arrow-down"></div>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="topnav-projects">
-                                    <router-link :to="'KKK'" class="dropdown-item" data-key="t-p-list">Category List</router-link>
-                                    <router-link :to="'kkk'" class="dropdown-item" data-key="t-create-new">Create
-                                        New</router-link>
+                                    <router-link :to="{ name: 'unit.vue' }" class="dropdown-item" data-key="t-p-list">Unit List</router-link>
+                                    <!-- <router-link :to="'kkk'" class="dropdown-item" data-key="t-create-new">Create
+                                        New</router-link> -->
                                 </div>
                             </div>
                             <!-- <div class="dropdown">

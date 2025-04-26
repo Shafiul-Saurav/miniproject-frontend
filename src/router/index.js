@@ -14,6 +14,15 @@ const router = createRouter({
                 //Dashboard Route
                 { path: '/dashboard', name: 'dashboard', component: () => import('@/views/Dashboard.vue')},
 
+                //Unit Route
+                { path: '/unit', name: 'unit.vue', component: () => import('@/views/Unit/Unit.vue')},
+                { path: '/unit/edit/:id', name: 'unit.edit', component: () => import('@/views/Unit/Edit.vue')},
+
+                //Category Route
+                // { path: '/category', name: 'category.index', component: () => import('@/views/Category/Index.vue')},
+                // { path: '/category/create', name: 'category.create', component: () => import('@/views/Category/Create.vue')},
+                // { path: '/category/edit/:id', name: 'category.edit', component: () => import('@/views/Category/Edit.vue')},
+
             ]
         },
         {
