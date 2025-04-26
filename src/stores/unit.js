@@ -87,7 +87,7 @@ export const useUnitStore = defineStore('units', {
                     title: data.message,
                     timer: 1000
                 });
-                
+
                 this.is_loading = false;
             } catch (error) {
                 this.is_loading = false;
@@ -105,7 +105,8 @@ export const useUnitStore = defineStore('units', {
                 const { data } = await appAxiosclient.get(`/units/${unit_id}`);
                 console.log(data);
                 this.unit = data.data;
-                this.editFormData.name = data.data.unit_name;
+                this.editFormData.name = data.data.name;
+                this.editFormData.short_name = data.data.short_name;
                 this.is_loading = false;
             } catch (error) {
                 this.is_loading = false;
@@ -129,7 +130,7 @@ export const useUnitStore = defineStore('units', {
                 })
 
                 this.is_loading = true;
-                this.router.push({ name: 'unit.index' });
+                this.router.push({ name: 'unit.vue' });
             } catch (error) {
                 this.is_loading = false;
                 this.errors = error.response.data;
