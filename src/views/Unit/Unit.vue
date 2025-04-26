@@ -2,6 +2,7 @@
 //Import All Libraries
 import { useUnitStore } from '@/stores/unit';
 import _ from 'lodash';
+import { ErrorMessage } from 'vee-validate';
 import { inject, onMounted, reactive, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 
@@ -48,7 +49,7 @@ const StoreUnit = async (values, { resetForm }) => {
         // Reset the validation state
         resetForm();
 
-        await unitStore.getUnits(unitStore.pagination.currentunit, unitStore.dataLimit);
+        await unitStore.getUnits(unitStore.pagination.currentPage, unitStore.dataLimit);
     } catch (error) {
         console.error(error);
     }
@@ -64,7 +65,7 @@ const DeleteUnit = (id, name) => {
         if (result.isConfirmed) {
             unitStore.deleteUnit(id, (status) => {
                 if (status == 'success') {
-                    unitStore.getUnits(unitStore.pagination.currentunit, unitStore.dataLimit)
+                    unitStore.getUnits(unitStore.pagination.currentPage, unitStore.dataLimit)
                 }
             })
         }
@@ -73,14 +74,14 @@ const DeleteUnit = (id, name) => {
 
 //All Hooks, Computed, Watcher
 onMounted(() => {
-    unitStore.getUnits(unitStore.pagination.currentunit, unitStore.dataLimit);
+    unitStore.getUnits(unitStore.pagination.currentPage, unitStore.dataLimit);
 })
 
 watch(
     searchKeyword,
     _.debounce((current, previous) => {
         console.log(current);
-        unitStore.getUnits(unitStore.pagination.currentunit, unitStore.dataLimit, current)
+        unitStore.getUnits(unitStore.pagination.currentPage, unitStore.dataLimit, current)
     }, 500)
 )
 </script>
@@ -171,7 +172,7 @@ watch(
                                 </thead>
                                 <tbody>
                                     <tr v-for="(unit, index) in unitStore.units" :key="unit.id">
-                                        <th scope="row">{{ (unitStore.pagination.currentunit*unitStore.dataLimit) - unitStore.dataLimit+index+1 }}</th>
+                                        <th scope="row">{{ (unitStore.pagination.currentPage*unitStore.dataLimit) - unitStore.dataLimit+index+1 }}</th>
                                         <td>{{ unit.name }}</td>
                                         <td>{{ unit.short_name }}</td>
                                         <!-- <td>
@@ -195,11 +196,11 @@ watch(
                         </div>
                         <div class="d-flex justify-content-end m-3">
                             <v-pagination 
-                            v-model="unitStore.pagination.currentunit"
-                            :units="unitStore.pagination.lastunit"
+                            v-model="unitStore.pagination.currentPage"
+                            :pages="unitStore.pagination.lastPage"
                             :range-size="1"
                             active-color="#776acF"
-                            @update:modelValue="unitStore.getUnits(unitStore.pagination.currentunit, unitStore.dataLimit)"
+                            @update:modelValue="unitStore.getUnits(unitStore.pagination.currentPage, unitStore.dataLimit)"
                             />
                         </div>
                     </div>
